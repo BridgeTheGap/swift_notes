@@ -1,7 +1,6 @@
-//: Playground - noun: a place where people can play
+import Foundation
 
 //: CASE 1
-typealias MutatingClosure = StructRange -> StructRange
 typealias ClassClosure = ClassRange -> ClassRange
 
 class ClassRange {
@@ -60,6 +59,8 @@ if cRange === clonedCRange {
 }
 
 print("*******************")
+
+typealias MutatingClosure = StructRange -> StructRange
 
 struct StructRange {
     var firstValue: Int
