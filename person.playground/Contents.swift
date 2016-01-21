@@ -70,6 +70,10 @@ class Person {
         print(Person.getPopulation())
     }
     
+    deinit {
+        --Person.numberOfPeople
+    }
+    
     class func getPopulation() -> String {
         let person = numberOfPeople == 1 ? "person" : "people"
         return "There are \(numberOfPeople) \(person) in this world."

@@ -1,5 +1,23 @@
 import Foundation
 
+//: 1. Unlike ObjC, sub-properties of a structure property can be set directly,
+//:    without having to set the entire property to a new value.
+//:    (e.g. in ObjC, the frame property of a view had to be changed entirely.)
+struct Resolution {
+    var width = 0
+    var height = 0
+}
+class VideoMode {
+    var resolution = Resolution()
+    var interlaced = false
+    var frameRate = 0.0
+    var name: String?
+}
+
+let someVideoMode = VideoMode()
+someVideoMode.resolution.width = 1280
+
+
 //: CASE 1
 typealias ClassClosure = ClassRange -> ClassRange
 
@@ -112,7 +130,7 @@ print("sRange: \(sRange)")
 print("clonedSRange: \(clonedSRange)")
 
 
-// Summary of question:
+// Summary:
 //
 // Since classes are reference types, and clone() doesn't return a copy,
 // all three variables refer to the same instance.
@@ -122,6 +140,33 @@ print("clonedSRange: \(clonedSRange)")
 // a copy of self resides in the closure, and as a result,
 // any mutation within the closure is lost.
 
+//: Case 2
+enum CarClass {
+    case Economy, Family, Sedan, Luxury, Sports, OffRoader, Commercial
+}
+
+struct Struct {
+    let car: Car
+    var number: Int
+}
+
+class Car {
+    let seats: Int
+    let classification: CarClass
+    var passengers: Int
+    
+    init(seats: Int = 5, classification: CarClass = .Sedan, passengers: Int = 4) {
+        self.seats = seats
+        self.classification = classification
+        self.passengers = passengers
+    }
+}
+
+let someStruct = Struct(car: Car(), number: 5)
+someStruct.car.passengers = 5
+
+// When a structure's property is a reference type,
+// it is allowed to mutate the reference type property even when the instance is a constant.
 
 
 //: USAGE
@@ -172,3 +217,8 @@ struct AlternativeRect {
         }
     }
 }
+
+
+
+
+
