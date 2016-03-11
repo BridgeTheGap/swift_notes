@@ -1,3 +1,7 @@
+// ***********************************
+// Properties
+// ***********************************
+
 //: 1. Stored type properties are lazily initialized on their first access.
 
 //: 2. Stored type properties are guaranteed to be initialized only once, even when accessed by multiple threads simultaneously.
@@ -50,6 +54,36 @@ var d: Person? = Person.init(race: .White)
 print(Person.totalAsians)
 
 a = nil
+
+//: [Case study]
+//: ** Properties of co-dependent objects **
+
+//: In a co-dependent state, where two objects won't be destroyed,
+//: using optionals results in extra unwrapping process.
+//: Since two objects are dependent on each other for initialization,
+//: however, one of the objects needs to be assigned nil at init time.
+//: This problem can be solved by using implicitly unwrapped optionals.
+class Country {
+    let name: String
+    var capitalCity: City!
+    init(name: String, capitalName: String) {
+        self.name = name
+        self.capitalCity = City(name: capitalName, country: self)
+    }
+}
+
+//: Avoid reference cycles using `unowned` modifier.
+class City {
+    let name: String
+    unowned let country: Country
+    init(name: String, country: Country) {
+        self.name = name
+        self.country = country
+    }
+}
+
+var country = Country(name: "Korea", capitalName: "Seoul")
+print(country.capitalCity.name, country.name)
 
 //: ** Question **
 //: 1. What is the difference between a computed property and a function?

@@ -141,6 +141,37 @@ for item in breakfastList {
     print(item.description)
 }
 
+//: Case study 3
+//: Within the initializer, once all properties are assigned a value,
+//: the instance finishes Phase 1 initialization.
+class Country {
+    let name: String
+    var capitalCity: City!
+    init(name: String, capitalName: String) {
+        //: The following line displays a compiler error,
+        //: since self.name hasn't been given an initial value.
+        //: (Still Phase 1)
+        // print(self)
+        self.name = name
+        //: However, after self.name has been given an initial value, self can be used.
+        //: (Now Phase 2)
+        print(self)
+        self.capitalCity = City(name: capitalName, country: self)
+    }
+}
+
+class City {
+    let name: String
+    unowned let country: Country
+    init(name: String, country: Country) {
+        self.name = name
+        self.country = country
+    }
+}
+
+var c = Country(name: "Korea", capitalName: "Seoul")
+print(c.capitalCity.name, c.name)
+
 //: 3. Failable initializers
 struct Animal {
     let species: String
