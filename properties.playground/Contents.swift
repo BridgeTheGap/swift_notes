@@ -35,13 +35,13 @@ class Person {
     
     init(race: CrudeRace) {
         self.race = race
-        ++Person.totalPopulation
+        Person.totalPopulation += 1
         Person.populationByRace[race]! += 1
         print("A new life. Now \(Person.totalPopulation) living on earth")
     }
     
     deinit {
-        --Person.totalPopulation
+        Person.totalPopulation -= 1
         print("The end of a life. Now \(Person.totalPopulation) remains")
     }
 }

@@ -35,7 +35,7 @@ class Person {
     var age: Int {
         get {
             let cal = NSCalendar.init(calendarIdentifier: NSCalendarIdentifierGregorian)
-            ++totalCount
+            totalCount += 1
             return cal!.components(.Year, fromDate: birthday, toDate: NSDate(), options: .WrapComponents).year
         }
     }
@@ -60,7 +60,7 @@ class Person {
     }
     
     init(gender: Gender, name: String, birthday: NSDate) {
-        ++Person.numberOfPeople
+        Person.numberOfPeople += 1
         self.name = name
         self.birthday = birthday
         self.gender = gender

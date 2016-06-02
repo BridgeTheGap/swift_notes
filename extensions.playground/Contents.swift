@@ -65,11 +65,12 @@ print(someInt)
 //: 4. Subscripts
 
 extension Int {
-    subscript(var digitIndex: Int) -> Int {
+    subscript(digitIndex: Int) -> Int {
+        var digitIndex = digitIndex
         var decimalBase = 1
         while digitIndex > 0 {
             decimalBase *= 10
-            --digitIndex
+            digitIndex -= 1
         }
         return (self / decimalBase) % 10
     }
@@ -106,3 +107,6 @@ func printIntegerKinds(numbers: [Int]) {
 }
 
 printIntegerKinds([3, 9, -27, 0, -6, 0, 7])
+
+//: If a type already has all the specifications of a protocol,
+//: the type can conform to a protocol through empty implementation
